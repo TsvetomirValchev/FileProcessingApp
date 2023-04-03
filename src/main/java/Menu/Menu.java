@@ -1,20 +1,48 @@
 package Menu;
 import FileManagers.FileIO;
 import FileManagers.LineSwapper;
-import FileManagers.WordSwitcher;
+import FileManagers.WordSwapper;
 
+
+import java.io.File;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
     private final Scanner input = new Scanner(System.in);
-
+    public void displayText(List<List<String>> text) {
+        for (List<String> strings : text) {
+            if (strings.isEmpty()) {
+                System.out.println();
+            } else {
+                for (String word : strings) {
+                    System.out.print(word + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
+    public static String getFilePath() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the file path: ");
+        return scanner.nextLine();
+    }
+    public boolean verifyFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists() && !file.isDirectory()) {
+            return true;
+        }
+        System.out.println("File does not exist or is a directory. Please try again.");
+        return false;
+    }
     public void start() {
 
-        String filePath = FileIO.getFilePath();
+        String filePath = getFilePath();
         FileIO fileIO = new FileIO(filePath);
         fileIO.readFile();
 
-        if (fileIO.verifyFile(filePath)) {
+        if (verifyFile(filePath)) {
             System.out.println("File Verified!");
             int choice = 0;
             while (choice != 4) {
@@ -37,7 +65,7 @@ public class Menu {
                         LineSwapper.swapLines(lineIndex1, lineIndex2);
                         System.out.println("Lines switched!");
                         }
-                        catch (IndexOutOfBoundsException e){
+                        catch (IndexOutOfBoundsException | InputMismatchException e){
                             System.out.println("Please enter valid indexes!");
                         }
                     }
@@ -51,13 +79,13 @@ public class Menu {
                         int lineIndexB = input.nextInt();
                         System.out.print("Enter word index of the second word to switch: ");
                         int wordIndexB = input.nextInt();
-                        WordSwitcher.switchWords(FileIO.getText(), lineIndexA, wordIndexA, lineIndexB, wordIndexB);
+                        WordSwapper.swapWords(lineIndexA, wordIndexA, lineIndexB, wordIndexB);
                         System.out.println("Words switched!");
-                        }catch (IndexOutOfBoundsException e){
+                        }catch (IndexOutOfBoundsException | InputMismatchException e){
                             System.out.println("Please enter valid indexes!");
                         }
                     }
-                    case 3 -> fileIO.displayText(FileIO.getText());
+                    case 3 -> displayText(FileIO.getText());
                     case 4 -> {
                         fileIO.saveFile();
                         System.out.println("Changes saved and program exited!");
