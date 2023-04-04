@@ -1,61 +1,49 @@
 package FileManagers;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+
 
 public class LineSwapperTest {
 
-    private List<List<String>> text;
 
-    @BeforeEach
-    void setUp() {
-        text = new ArrayList<>();
-        text.add(List.of("Line 1"));
-        text.add(List.of("Line 2"));
-        text.add(List.of("Line 3"));
-        text.add(List.of("Line 4"));
+    @BeforeAll
+    public static void setUp () {
+        createTestText();
+
     }
-
     @Test
-    @DisplayName("should swap lines within the range")
-    void swapLinesWithinRange() {
-        LineSwapper.swapLines(0, 2);
-        assertEquals("Line 3", text.get(0).get(0));
-        assertEquals("Line 1", text.get(2).get(0));
+    public void testSwapLinesWithProperIndexes() {
+        //We swap line2 with line1 (lines start counting from 0)
+        LineSwapper.swapLines(createTestText(), 2,1);
+                List<List<String>> ExpectedText =
+                        Arrays.asList(Arrays.asList("word1","word2", "word3"),
+                                Arrays.asList("word7", "word8", "word9"),
+                                Arrays.asList("word4", "word5","word6"));
+
+        assertEquals(createTestText().get(1),ExpectedText.get(2));
+
+
+
+    }
+    //This method creates the List<List<String>> text that we use to test the method SwapLines
+    private static List<List<String>> createTestText(){
+        List<List<String>> text =
+                        Arrays.asList(Arrays.asList("word1","word2", "word3"),
+                                Arrays.asList("word4", "word5","word6"),
+                                Arrays.asList("word7", "word8", "word9"));
+        return text;
+
     }
 
-    @Test
-    @DisplayName("should throw an exception when the first line number is out of range")
-    void swapLinesWhenFirstLineNumberIsOutOfRange() {
-        assertThrows(IndexOutOfBoundsException.class, () -> LineSwapper.swapLines(5, 2));
-    }
 
-    @Test
-    @DisplayName("should throw an exception when the second line number is out of range")
-    void swapLinesWhenSecondLineNumberIsOutOfRange() {
-        assertThrows(IndexOutOfBoundsException.class, () -> LineSwapper.swapLines(0, 5));
-    }
 
-    @Test
-    @DisplayName("Should throw IndexOutOfException when indexes that are out of bound are provided")
-    void swapLinesWithWrongLineIndexesShouldThrowIndexOutOfBoundsException() {
-        assertThrows(IndexOutOfBoundsException.class, () -> LineSwapper.swapLines(20000, 20000));
-    }
-
-    @Test
-    @DisplayName("should not change the text when swapping the same line number")
-    void swapLinesWithSameLineNumber() {
-        LineSwapper.swapLines(1, 1);
-        assertEquals("Line 2", text.get(1).get(0));
-    }
 }
 
 

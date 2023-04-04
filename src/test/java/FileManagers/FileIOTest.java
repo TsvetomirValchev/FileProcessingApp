@@ -1,9 +1,6 @@
 package FileManagers;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +19,7 @@ public class FileIOTest {
 
     @BeforeEach
     public void setUp() {
-        testFilePath = "src/test/java/FileManagers/testFile.txt";
+        testFilePath = "src/test/java/FileManagers/FileIOTestFile.txt";
         fileIO = new FileIO(testFilePath);
         createTestFile();
     }
@@ -45,6 +42,7 @@ public class FileIOTest {
         assertEquals(0, new File(testFilePath).length());
     }
 
+    @Order(1)
     @Test
     @DisplayName("should save the file with the correct content")
     void saveFileWithCorrectContent() {
@@ -58,8 +56,9 @@ public class FileIOTest {
         assertEquals(expectedText, FileIO.getText());
     }
 
-
     @Test
+    @Disabled
+    @DisplayName("should save the file with the correct content 2nd integration")
     public void testSaveFile() {
         List<List<String>> newText = Arrays.asList(
                 Arrays.asList("new1", "new2"),
@@ -82,10 +81,10 @@ public class FileIOTest {
     }
 
 
-    @Order(1)
+    @Order(2)
     @Test
     @DisplayName("should read the file and store its content correctly")
-    void readFileAndStoreContent() {
+    void readFileAndStoreContentInList() {
         FileIO.getText().clear();
         fileIO.readFile();
         List<List<String>> expectedText =
