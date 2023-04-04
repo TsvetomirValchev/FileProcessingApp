@@ -1,4 +1,4 @@
-package Menu;
+package View;
 import FileManagers.FileIO;
 import FileManagers.LineSwapper;
 import FileManagers.WordSwapper;
@@ -11,31 +11,7 @@ import java.util.Scanner;
 
 public class Menu {
     private final Scanner input = new Scanner(System.in);
-    public void displayText(List<List<String>> text) {
-        for (List<String> strings : text) {
-            if (strings.isEmpty()) {
-                System.out.println();
-            } else {
-                for (String word : strings) {
-                    System.out.print(word + " ");
-                }
-                System.out.println();
-            }
-        }
-    }
-    public static String getFilePath() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the file path: ");
-        return scanner.nextLine();
-    }
-    public boolean verifyFile(String filePath) {
-        File file = new File(filePath);
-        if (file.exists() && !file.isDirectory()) {
-            return true;
-        }
-        System.out.println("File does not exist or is a directory. Please try again.");
-        return false;
-    }
+
     public void start() {
 
         String filePath = getFilePath();
@@ -96,4 +72,31 @@ public class Menu {
             System.out.println("File not found! Try again.");
         }
     }
+
+    public void displayText(List<List<String>> text) {
+        for (List<String> strings : text) {
+            if (strings.isEmpty()) {
+                System.out.println();
+            } else {
+                for (String word : strings) {
+                    System.out.print(word + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
+    public boolean verifyFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists() && !file.isDirectory()) {
+            return true;
+        }
+        System.out.println("File does not exist or is a directory. Please try again.");
+        return false;
+    }
+    public static String getFilePath() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the file path: ");
+        return scanner.nextLine();
+    }
+
 }
