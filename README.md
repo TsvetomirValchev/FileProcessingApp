@@ -1,6 +1,6 @@
 # FileProcessingApp
 
-The application must bea ble to:
+The application must be able to:
 
 1. Read a text file by provided filePath.
 2. Swap two line of the text file.
