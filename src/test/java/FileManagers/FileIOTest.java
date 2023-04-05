@@ -56,31 +56,6 @@ public class FileIOTest {
         assertEquals(expectedText, FileIO.getText());
     }
 
-    @Test
-    @Disabled
-    @DisplayName("should save the file with the correct content 2nd integration")
-    public void testSaveFile() {
-        List<List<String>> newText = Arrays.asList(
-                Arrays.asList("new1", "new2"),
-                Arrays.asList("new3", "new4", "new5")
-        );
-        FileIO.getText().clear();
-        FileIO.getText().addAll(newText);
-
-        fileIO.saveFile();
-
-        List<String> lines = null;
-        try {
-            lines = Files.readAllLines(Paths.get(testFilePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        assertTrue(lines.contains("new1 new2"));
-        assertTrue(lines.contains("new3 new4 new5"));
-    }
-
-
     @Order(2)
     @Test
     @DisplayName("should read the file and store its content correctly")
