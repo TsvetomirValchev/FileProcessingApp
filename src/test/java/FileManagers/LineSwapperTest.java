@@ -8,15 +8,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-
 public class LineSwapperTest {
-
-
     @BeforeAll
     public static void setUp () {
         createTestText();
-
     }
     @Test
     public void testSwapLinesWithProperIndexes() {
@@ -29,8 +24,6 @@ public class LineSwapperTest {
 
         assertEquals(createTestText().get(1),ExpectedText.get(2));
 
-
-
     }
     //This method creates the List<List<String>> text that we use to test the method SwapLines
     private static List<List<String>> createTestText(){
@@ -39,11 +32,5 @@ public class LineSwapperTest {
                                 Arrays.asList("word4", "word5","word6"),
                                 Arrays.asList("word7", "word8", "word9"));
         return text;
-
     }
-
-
-
 }
-
-
