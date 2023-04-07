@@ -3,22 +3,17 @@ package FileManagers;
 import java.io.*;
 import java.util.*;
 
-
 public class FileIO {
-
     // This field stores the lines of text read from or to be written to the file.
-    private static final List<List<String>> text = new ArrayList<>();
+    private final List<List<String>> text = new ArrayList<>();
     private final String filePath;
-
-    public static List<List<String>> getText() {
-        return text;
-    }
+    public List<List<String>> getText() {return text;}
 
     public FileIO(String filePath) {
         this.filePath = filePath;
     }
    //this method reads the file and saves it's content in the store field
-    public void readFile() {
+    public void readFile(){
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -27,7 +22,7 @@ public class FileIO {
                 text.add(lines);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Something went wrong with reading the file...");
         }
     }
     //this method saves the content of the store field to the file
@@ -40,11 +35,20 @@ public class FileIO {
                         bw.write("\s");
                     }
                 }
-                bw.newLine();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Something went wrong with saving the file...");
         }
+    }
+    public void swapLines(List<List<String>> text,  int firstLine, int secondLine) {
+        List<String> temp = text.get(firstLine);
+        text.set(firstLine, text.get(secondLine));
+        text.set(secondLine, temp);
+    }
+    public  void swapWords(List<List<String>> text, int firstLineIndex, int firstWordIndex, int secondLineIndex, int secondWordIndex) {
+        String temp = text.get(firstLineIndex).get(firstWordIndex);
+        text.get(firstLineIndex).set(firstWordIndex, text.get(secondLineIndex).get(secondWordIndex));
+        text.get(secondLineIndex).set(secondWordIndex, temp);
     }
 }
 
