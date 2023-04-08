@@ -3,15 +3,13 @@ package FileManagers;
 import java.io.*;
 import java.util.*;
 
-public class FileIO {
+public class FileDataManager {
     // This field stores the lines of text read from or to be written to the file.
     private final List<List<String>> text = new ArrayList<>();
     private final String filePath;
     public List<List<String>> getText() {return text;}
 
-    public FileIO(String filePath) {
-        this.filePath = filePath;
-    }
+    public FileDataManager(String filePath) {this.filePath = filePath;}
    //this method reads the file and saves it's content in the store field
     public void readFile(){
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -40,12 +38,12 @@ public class FileIO {
             System.out.println("Something went wrong with saving the file...");
         }
     }
-    public void swapLines(List<List<String>> text,  int firstLine, int secondLine) {
+    public void swapLines(int firstLine, int secondLine) {
         List<String> temp = text.get(firstLine);
         text.set(firstLine, text.get(secondLine));
         text.set(secondLine, temp);
     }
-    public  void swapWords(List<List<String>> text, int firstLineIndex, int firstWordIndex, int secondLineIndex, int secondWordIndex) {
+    public  void swapWords(int firstLineIndex, int firstWordIndex, int secondLineIndex, int secondWordIndex) {
         String temp = text.get(firstLineIndex).get(firstWordIndex);
         text.get(firstLineIndex).set(firstWordIndex, text.get(secondLineIndex).get(secondWordIndex));
         text.get(secondLineIndex).set(secondWordIndex, temp);

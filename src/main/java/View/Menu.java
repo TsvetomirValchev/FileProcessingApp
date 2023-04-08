@@ -1,5 +1,5 @@
 package View;
-import FileManagers.FileIO;
+import FileManagers.FileDataManager;
 
 
 import java.io.File;
@@ -12,8 +12,8 @@ public class Menu {
 
     public void start() {
         String filePath = getFilePath();
-        FileIO fileIO = new FileIO(filePath);
-        fileIO.readFile();
+        FileDataManager fileDataManager = new FileDataManager(filePath);
+        fileDataManager.readFile();
         if (verifyFile(filePath)) {
             System.out.println("File Verified!");
             int choice = 0;
@@ -33,8 +33,8 @@ public class Menu {
                             int lineIndex1 = input.nextInt();
                             System.out.print("Enter the index of the second line you want to switch: ");
                             int lineIndex2 = input.nextInt();
-                            fileIO.swapLines(fileIO.getText(), lineIndex1, lineIndex2);
-                            fileIO.saveFile();
+                            fileDataManager.swapLines(lineIndex1, lineIndex2);
+                            fileDataManager.saveFile();
                             System.out.println("Lines switched!");
                         } catch (IndexOutOfBoundsException | InputMismatchException e) {
                             System.out.println("Please enter valid indexes!");
@@ -50,15 +50,15 @@ public class Menu {
                             int lineIndex2 = input.nextInt();
                             System.out.print("Enter word index of the second word to switch: ");
                             int wordIndex2 = input.nextInt();
-                            fileIO.swapWords(fileIO.getText(), lineIndex1, wordIndex1, lineIndex2, wordIndex2);
-                            fileIO.saveFile();
+                            fileDataManager.swapWords(lineIndex1, wordIndex1, lineIndex2, wordIndex2);
+                            fileDataManager.saveFile();
                             System.out.println("Words switched!");
                         } catch (IndexOutOfBoundsException | InputMismatchException e) {
                             System.out.println("Please enter valid indexes!");
                         }
                     }
 
-                    case 3 -> displayText(fileIO.getText());
+                    case 3 -> displayText(fileDataManager.getText());
                     case 4 -> System.out.println("Exiting program...");
                     default -> System.out.println("Invalid option! Try again.");
                 }
