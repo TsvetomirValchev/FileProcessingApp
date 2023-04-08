@@ -4,13 +4,12 @@ import java.io.*;
 import java.util.*;
 
 public class FileDataManager {
-    // This field stores the lines of text read from or to be written to the file.
+    // SSOT attempt
     private final List<List<String>> text = new ArrayList<>();
     private final String filePath;
     public List<List<String>> getText() {return text;}
 
     public FileDataManager(String filePath) {this.filePath = filePath;}
-   //this method reads the file and saves it's content in the store field
     public void readFile(){
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -23,7 +22,6 @@ public class FileDataManager {
             System.out.println("Something went wrong with reading the file...");
         }
     }
-    //this method saves the content of the store field to the file
     public void saveFile() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             for (List<String> line : text) {

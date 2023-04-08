@@ -56,7 +56,6 @@ public class FileDataManagerTest {
     @Test
     public void testSwapLinesWithProperIndexes() {
         testFileDataManager.readFile();
-        //We swap line2 with line1 (lines start counting from 0)
         testFileDataManager.swapLines(2,1);
         List<List<String>> ExpectedText =
                 Arrays.asList(
