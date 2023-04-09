@@ -9,7 +9,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class FileDataManagerTest {
     private final String testFilePath = "src/test/java/FileManagers/testFile.txt" ;
     private FileDataManager testFileDataManager = new FileDataManager(testFilePath);
@@ -21,15 +20,6 @@ public class FileDataManagerTest {
     @Test
     @DisplayName("should read the file and store its content correctly")
     public void readFileAndStoreContentInList() {
-        try {
-            FileWriter writer = new FileWriter(testFilePath);
-            writer.write("word1 word2 word3\n");
-            writer.write("word4 word5 word6\n");
-            writer.write("word7 word8 word9");
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         List<List<String>> expectedText =
                 Arrays.asList(
                         Arrays.asList("word1", "word2","word3"),
@@ -51,8 +41,6 @@ public class FileDataManagerTest {
         assertEquals(expectedText, testFileDataManager.getText());
     }
 
-
-
     @Test
     public void testSwapLinesWithProperIndexes() {
         testFileDataManager.readFile();
@@ -66,8 +54,6 @@ public class FileDataManagerTest {
         //swap them back so next test can be valid
         testFileDataManager.swapLines(2,1);
     }
-
-
 
     @Test
     public void testSwapWordsWithProperIndexes() {
@@ -84,8 +70,8 @@ public class FileDataManagerTest {
         assertEquals(testFileDataManager.getText().get(1).get(1), ExpectedText.get(2).get(1));
         //Check if word8 is in the place of word5
         assertEquals(testFileDataManager.getText().get(2).get(1),ExpectedText.get(1).get(1));
+        //swap back
+        testFileDataManager.swapWords(1,1,2,1);
     }
-
-
 
 }

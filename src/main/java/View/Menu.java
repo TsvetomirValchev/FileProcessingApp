@@ -1,7 +1,6 @@
 package View;
 import FileManagers.FileDataManager;
 
-
 import java.io.File;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -65,6 +64,22 @@ public class Menu {
             }
         }
     }
+
+    public static String getFilePath(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the file path: ");
+        return scanner.nextLine();
+    }
+
+    public boolean verifyFile(String filePath){
+        File file = new File(filePath);
+        if (file.exists() && !file.isDirectory()) {
+            return true;
+        }
+        System.out.println("File does not exist or is a directory. Please try again.");
+        return false;
+    }
+
     public void displayText(List<List<String>> text) {
         for (List<String> strings : text) {
             if (strings.isEmpty()) {
@@ -76,19 +91,6 @@ public class Menu {
                 System.out.println();
             }
         }
-    }
-    public boolean verifyFile(String filePath){
-        File file = new File(filePath);
-        if (file.exists() && !file.isDirectory()) {
-            return true;
-        }
-        System.out.println("File does not exist or is a directory. Please try again.");
-        return false;
-    }
-    public static String getFilePath(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the file path: ");
-        return scanner.nextLine();
     }
 
 }
